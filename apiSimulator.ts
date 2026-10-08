@@ -49,7 +49,7 @@ export default function fetchProductReviews(productId:  number): Promise<product
             if (matchedReviews.length > 0) {
                 resolve(matchedReviews)
             } else {
-                reject(`Failed to fetch reviews for product ID ${productId}`)
+                reject(new DataError(`Failed to fetch reviews for product ID ${productId}`));
             }
         }, 1000);
 
