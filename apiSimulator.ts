@@ -1,6 +1,20 @@
 
 export {};
 
+class NetworkError extends Error{
+    constructor(message:string){
+        super(message);
+        this.name = "NetworkError";
+    }
+}
+
+class DataError extends Error{
+    constructor(message: string){
+        super(message);
+        this.name = "DataError";
+    }
+}
+
 export interface product {
     productId: number;
     name: string;
@@ -9,7 +23,7 @@ export interface product {
 export function fetchProductCatalog(): Promise<product> {
     return new Promise((resolve, reject) => {
         if (Math.random() < 0.5) {
-            reject("Failed to fetch product catalog")
+            reject(new NetworkError("Failed to fetch product catalog: Connecton time out"))
         } else {
             setTimeout(() => {
                 let Product: product = { productId: 2, name: "shoes", price: 300 };
@@ -72,29 +86,7 @@ export function fetchSalesReport(Product: product): Promise<productSales[]> {
 
 
 
-// fetchProductCatalog()
-//     .then((catalog) => {
-       
 
-//         console.log("Catalog:", catalog)
-//         return fetchProductReviews(catalog)
-//             .then((reviews) => {
-
-//                 console.log(reviews)
-//                 return fetchSalesReport(catalog)
-//             })
-//             .catch((error) => {
-//                 console.log(error);
-
-//             })
-
-//     })
-//     .then((salesReport)=>{
-//         console.log(salesReport)
-//     })
-//     .catch((error)=>{
-//         console.log(error)
-//     })
 
 
 
