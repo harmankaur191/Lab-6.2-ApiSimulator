@@ -1,13 +1,13 @@
 
 export {};
-
+// custom Error Class-Network Error
 class NetworkError extends Error{
     constructor(message:string){
         super(message);
         this.name = "NetworkError";
     }
 }
-
+//custom Error Class-DataError
 class DataError extends Error{
     constructor(message: string){
         super(message);
@@ -22,7 +22,7 @@ export interface product {
 }
 export function fetchProductCatalog(): Promise<product> {
     return new Promise((resolve, reject) => {
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.8) {
             reject(new NetworkError("Failed to fetch product catalog: Connecton time out"))
         } else {
             setTimeout(() => {
@@ -40,23 +40,26 @@ interface productReviews {
 }
 export default function fetchProductReviews(productId:  number): Promise<productReviews[]> {
     return new Promise((resolve, reject) => {
-
+       if (Math.random() < 0.8) {
+            reject(new NetworkError("Failed to fetch product catalog: Connecton time out"))
+        }else{
         setTimeout(() => {
             let reviews: productReviews[] = [{ productId: 1, rating: "4 star" }, { productId: 2, rating: "2 star" }];
 
             let matchedReviews = reviews.filter(review => productId === review.productId)
 
-            if (matchedReviews.length > 0) {
+            if (matchedReviews.length > 0 ) {
                 resolve(matchedReviews)
             } else {
                 reject(new DataError(`Failed to fetch reviews for product ID ${productId}`));
             }
-        }, 1000);
+        }, 1500);
+    }
 
     })
 
 };
-//totalSales, unitsSold, and averagePrice.
+
 
 interface productSales {
     productId: number;
@@ -85,7 +88,9 @@ export function fetchSalesReport(Product: product): Promise<productSales[]> {
 };
 
 
+// function retryPromise(retries: number,delay:number):Promise{
 
+// }
 
 
 

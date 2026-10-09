@@ -1,0 +1,1 @@
+Using custom error classes helps in handling the error accurately based on the type of the error. Displaying the correct error message by using NetworkError and DataError classes, each time an error is encountered correct error message informing the user of the issue encountered.
